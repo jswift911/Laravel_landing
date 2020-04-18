@@ -1,3 +1,27 @@
+{{--Ошибки валидации и т.д--}}
+
+@if (session('status'))
+
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+
+@endif
+
+@if (count($errors) > 0)
+
+    <div class="alert alert-danger">
+        <ul>
+            {{--$errors->all() - превращаем объект в массив--}}
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+@endif
+
+
 
 @if (isset($pages) && is_object($pages))
 
@@ -249,10 +273,15 @@
                 </div>
                 <div class="col-lg-8 wow fadeInLeft delay-06s">
                     <div class="form">
-                        <input class="input-text" type="text" name="" value="Your Name *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-                        <input class="input-text" type="text" name="" value="Your E-mail *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-                        <textarea class="input-text text-area" cols="0" rows="0" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">Your Message *</textarea>
-                        <input class="input-btn" type="submit" value="send message">
+                        <form action="{{ route('home') }}" method="post">
+                            @csrf
+                            {{--Аналогично--}}
+                            {{--{{ csrf_field() }}--}}
+                            <input class="input-text" type="text" name="name" value="Your Name *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
+                            <input class="input-text" type="text" name="email" value="Your E-mail *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
+                            <textarea class="input-text text-area" name="text" cols="0" rows="0" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">Your Message *</textarea>
+                            <input class="input-btn" type="submit" value="send message">
+                        </form>
                     </div>
                 </div>
             </div>

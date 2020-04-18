@@ -1654,7 +1654,7 @@ margin: 0px;
 margin-bottom: 20px;
 }
 #filters ul{
-padding-left:0px;
+padding-left:0;
 }
 .form {
 margin: 0 18px;
@@ -1702,7 +1702,7 @@ width: 100%;
 text-align:center;
 }
 .navStyle ul li:last-child {
-margin: 0px;
+margin: 0;
 }
 .navbar-inverse .navbar-nav > li > a {
 color: #222;
@@ -1713,4 +1713,7 @@ background: #F9F9F9;
 .team_area {
 width: 99%;
 }
+}
+.alert {
+    margin: 0;
 }

@@ -11,13 +11,15 @@
 |
 */
 
-Route::group(['middleware' => 'web'], function () {
+//В новых версиях посредних web передается автоматически везде, поэтому можно не передавать
+//Route::group(['middleware' => 'web'], function () {
+Route::group([], function () {
 
     Route::match(['GET', 'POST'], '/',['uses'=>'IndexController@execute','as'=>'home']);
     Route::get('/page/{alias}',['uses'=>'PageController@execute', 'as'=>'page']);
 
     Route::auth();
-    
+
 
 });
 
@@ -26,7 +28,7 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function () {
 
     //admin
     Route::get('/', function () {
-        
+
 
     });
 
@@ -75,5 +77,5 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function () {
         Route::match(['GET', 'POST', 'DELETE'], '/edit/{service}', ['uses'=>'ServiceEditController@execute','as'=>'serviceEdit']);
 
     });
-    
+
 });
