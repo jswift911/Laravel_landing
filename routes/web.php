@@ -15,7 +15,7 @@
 //Route::group(['middleware' => 'web'], function () {
 Route::group([], function () {
 
-    Route::match(['GET', 'POST'], '/',['uses'=>'IndexController@execute','as'=>'home']);
+    Route::match(['GET', 'POST'], '/',['uses'=>'IndexController@execute','as'=>'index']);
     Route::get('/page/{alias}',['uses'=>'PageController@execute', 'as'=>'page']);
 
     Route::auth();
@@ -24,11 +24,22 @@ Route::group([], function () {
 });
 
 //admin
-Route::group(['prefix'=>'admin','middleware' => 'auth'], function () {
+//Route::group(['prefix'=>'admin','middleware' => 'auth'], function () {
+Route::group(['prefix'=>'admin'], function () {
 
     //admin
+    Auth::routes();
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', function () {
 
+        if (view()->exists('admin.index')) {
+
+            $data = [
+                'title' => 'Панель администратора',
+            ];
+
+            return view('admin.index', $data);
+        }
 
     });
 
@@ -79,3 +90,4 @@ Route::group(['prefix'=>'admin','middleware' => 'auth'], function () {
     });
 
 });
+
